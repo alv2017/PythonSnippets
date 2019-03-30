@@ -1,19 +1,11 @@
-# Working with MySQL Workbench
-
 import win32crypt
-from os import path
 
-fname = "workbench_user_data.dat"
-
-print(fname)
-
-if path.exists:
-    print('file exists')
-
+# path to file
+fpath = "workbench_user_data.dat"
 #open file and read data as binary
-with open(fname, 'rb') as f:
+with open(fpath, 'rb') as f:
     data = f.read()
-
+#decrypt data
 decrypt = win32crypt.CryptUnprotectData( data )
 
 print(decrypt)
