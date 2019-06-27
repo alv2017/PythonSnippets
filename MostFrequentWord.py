@@ -39,7 +39,7 @@ class MRMostFrequentWord(MRJob):
                 break
             else:
                 cnt += 1
-                yield wp
+                yield wp[1], wp[0]
 
 if __name__ == '__main__':
     MRMostFrequentWord.run()
