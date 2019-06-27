@@ -35,10 +35,11 @@ class MRMostFrequentWord(MRJob):
         # so yielding one results in key=counts, value=word
         cnt = 0
         for wp in sorted(word_count_pairs, reverse=True):
-            yield wp
-            cnt += 1
             if cnt==TOP_LENGTH:
                 break
+            else:
+                cnt += 1
+                yield wp
 
 if __name__ == '__main__':
     MRMostFrequentWord.run()
