@@ -22,17 +22,15 @@ class MRMostFrequentWord(MRJob):
 
     def combiner_count_words(self, word, counts):
         # optimization: sum the words we've seen so far
-        yield (word, sum(counts))
+        yield (sum(counts), word)
 
     def reducer_count_words(self, word, counts):
         # send all (num_occurrences, word) pairs to the same reducer.
-        # num_occurrences is so we can easily use Python's max() function.
         yield None, (sum(counts), word)
 
     # discard the key; it is just None
     def reducer_find_max_word(self, _, word_count_pairs):
-        # each item of word_count_pairs is (count, word),
-        # so yielding one results in key=counts, value=word
+        # top 10 words by number of occurrences
         cnt = 0
         for wp in sorted(word_count_pairs, reverse=True):
             if cnt==TOP_LENGTH:
